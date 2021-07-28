@@ -31,7 +31,7 @@ old_scales = { 10 : 5.205453968693979,
 plt.figure(figsize = figsize)
 
 for dim, color in zip(dims, colors):
-    files = glob.glob(data_dir + f"axes_d{dim}.txt")
+    files = glob.glob(data_dir + f"axis_num_data_d{dim}.txt")
     assert(len(files) == 1)
     axes, _, scales = np.loadtxt(files[0], unpack = True)
 

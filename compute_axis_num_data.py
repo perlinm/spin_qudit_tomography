@@ -4,7 +4,7 @@
 # For a given spin qudit dimension, this script generates random measurement axes and
 # computes their associated quantum error scale.  Results are printed to a data file,
 # together with the mean computation time for number of axes.
-# usage: python3 compute_tomo_axes.py [dim]
+# usage: python3 compute_axis_num_data.py [dim]
 ##########################################################################################
 
 import os, sys, time
@@ -33,7 +33,7 @@ np.random.seed(seed)
 data_dir = "./data/"
 if not os.path.isdir(data_dir):
     os.makedirs(data_dir)
-data_file = data_dir + f"axes_d{dim}.txt"
+data_file = data_dir + f"axis_num_data_d{dim}.txt"
 
 while os.path.isfile(data_file):
     print("file exists:", data_file)
