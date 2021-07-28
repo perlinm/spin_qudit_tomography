@@ -19,13 +19,6 @@ figsize = (3,2)
 colors = [ "k", "tab:blue", "tab:orange", "tab:green" ]
 dims = [ 10, 20, 40, 80 ]
 
-# quantum error scales achievable with the method in newton1968measurability,
-#   optimized over all polar angles
-old_scales = { 10 : 5.205453968693979,
-               20 : 8.689567681451933,
-               40 : 14.26455397815116,
-               80 : 23.36684910939962 }
-
 ##################################################
 
 plt.figure(figsize = figsize)
@@ -35,12 +28,20 @@ for dim, color in zip(dims, colors):
     assert(len(files) == 1)
     axes, _, scales = np.loadtxt(files[0], unpack = True)
 
-    scales *= np.sqrt(axes)
+    # plot normalized empirical error scales from randomized tomography protocol
+    scales *= np.sqrt(axes) # get "measurement-adjusted" error scale
     excess_axes = axes - (2*dim-1)
     plt.plot(excess_axes/dim, scales/scales[0],
              ".", label = f"$d={dim}$", color = color)
 
-    old_scale = old_scales[dim] * np.sqrt(2*dim-1)
+    # plot optimal error scales from "old" tomography protocol in
+    #   https://doi.org/10.1016/0003-4916(68)90035-3
+    with open(data_dir + f"angle_scales_d{dim}.txt", "r") as file:
+        for line in file:
+            if "optimum" in line:
+                old_scale = float(line.split()[-1])
+
+    old_scale *= np.sqrt(2*dim-1) # get "measurement-adjusted" error scale
     plt.axhline(old_scale/scales[0], color = color, linewidth = 1, zorder = 0)
 
 plt.gca().set_ylim(bottom = 0)
