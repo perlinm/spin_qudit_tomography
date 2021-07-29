@@ -19,7 +19,7 @@ if save_data: sys.argv.remove("save")
 # qudit dimensions from command-line inputs
 dims = np.sort(np.array(sys.argv[1:], dtype = int))
 
-theta_vals = np.linspace(0, np.pi/2, 501)[1:-1] # polar angles
+theta_vals = np.linspace(0, np.pi/2, 501)[1:-1] # polar angles, excluding 0 and pi/2
 
 # determine the directory and file for saving data
 data_dir = "./data/"

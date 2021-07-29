@@ -25,9 +25,6 @@ figure, axes = plt.subplots(2, 3, **kwargs)
 
 for dim, axis in zip(dims, axes.ravel()):
     angles, scales = np.loadtxt(data_dir + f"angle_scales_d{dim}.txt", unpack = True)
-    angles = angles[1:-1]
-    scales = scales[1:-1]
-
     axis.loglog(1-angles/(np.pi/2), scales/dim, "k")
 
     # add subplot label
