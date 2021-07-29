@@ -20,7 +20,7 @@ plt.rcParams.update(params)
 
 dims = [ 2, 3, 4, 10, 20, 40 ]
 
-kwargs = dict( figsize = (6,4), sharex = True, sharey = True )
+kwargs = dict( figsize = (7,4), sharex = True, sharey = True )
 figure, axes = plt.subplots(2, 3, **kwargs)
 
 for dim, axis in zip(dims, axes.ravel()):
