@@ -25,20 +25,20 @@ figure, axes = plt.subplots(2, 3, **kwargs)
 
 for dim, axis in zip(dims, axes.ravel()):
     angles, scales = np.loadtxt(data_dir + f"angle_scales_d{dim}.txt", unpack = True)
-    axis.loglog(1-angles/(np.pi/2), scales/dim, "k")
+    axis.semilogy(angles/(np.pi/2), scales/dim, "k")
 
     # add subplot label
     text = f"$d={dim}$"
     method_box = dict(boxstyle = "round", facecolor = "white", alpha = 1)
-    axis.text(0.1, 0.9, text, transform = axis.transAxes, bbox = method_box,
-              verticalalignment = "top", horizontalalignment = "left")
+    axis.text(0.9, 0.9, text, transform = axis.transAxes, bbox = method_box,
+              verticalalignment = "top", horizontalalignment = "right")
 
-plt.xlim(0.005, 1)
+plt.xlim(0, 1)
 plt.ylim(0.3, 2000)
 for axis in axes[:,0]:
     axis.set_ylabel(r"$\epsilon_\theta/d$")
 for axis in axes[-1,:]:
-    axis.set_xlabel(r"$1 - \frac{\theta}{\pi/2}$")
+    axis.set_xlabel(r"$\frac{\theta}{\pi/2}$")
 
 plt.tight_layout()
 plt.savefig(fig_dir + "angle_sweep.pdf")
@@ -57,6 +57,12 @@ for idx, file in enumerate(files):
                 opt_angles[idx] = float(line.split()[-2])
                 break
 
+dims, opt_angles = zip(*sorted([ (dim,angle) for dim, angle in zip(dims,opt_angles) ]))
+dims = np.array(dims)
+opt_angles = np.array(opt_angles)
+print(np.log10(dims))
+print(np.log10(opt_angles))
+
 def fit_func(dim, scalar):
     return np.pi/2 * (1 - 1/(scalar*dim))
 
@@ -70,7 +76,6 @@ plt.loglog(dims, 1 - opt_angles / (np.pi/2), "r.", label = "data")
 plt.loglog(dims, 1/(opt_val*dims), "k--", label = "fit")
 
 plt.xlim(right = 100)
-plt.ylim(bottom = 0.01)
 plt.xlabel(r"$d$")
 plt.ylabel(r"$1-\frac{\theta_{\mathrm{opt}}}{\pi/2}$")
 plt.legend(loc = "best")

@@ -16,14 +16,15 @@ plt.rcParams.update(params)
 
 figsize = (3,2)
 
-colors = [ "k", "tab:blue", "tab:orange", "tab:green" ]
 dims = [ 10, 20, 40, 80 ]
+colors = [ "k", "#4E79A7", "#F28E2B", "#E15759" ]
+markers = [ "^", "s", "p", "o"]
 
 ##################################################
 
 plt.figure(figsize = figsize)
 
-for dim, color in zip(dims, colors):
+for dim, color, marker in zip(dims, colors, markers):
     files = glob.glob(data_dir + f"axis_num_data_d{dim}.txt")
     assert(len(files) == 1)
     axes, _, scales = np.loadtxt(files[0], unpack = True)
@@ -31,8 +32,8 @@ for dim, color in zip(dims, colors):
     # plot normalized empirical error scales from randomized tomography protocol
     scales *= np.sqrt(axes) # get "measurement-adjusted" error scale
     excess_axes = axes - (2*dim-1)
-    plt.plot(excess_axes/dim, scales/scales[0],
-             ".", label = f"$d={dim}$", color = color)
+    plt.plot(excess_axes/dim, scales/scales[0], marker, markersize = 4,
+             label = f"$d={dim}$", color = color)
 
     # plot optimal error scales from "old" tomography protocol in
     #   https://doi.org/10.1016/0003-4916(68)90035-3

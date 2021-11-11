@@ -30,8 +30,8 @@ def get_data(tag):
 plt.figure(figsize = figsize)
 
 plot_params = [ ( "CB", r"$\mathcal{S}_V$", "o", "k" ),
-                ( "QB", r"$\epsilon_V$", ".", "tab:blue" ),
-                ( "RE", r"$\mathcal{E}_V(\rho)$", ".", "tab:orange" ) ]
+                ( "QB", r"$\epsilon_V$", "+", "#4E79A7" ),
+                ( "RE", r"$\mathcal{E}_V(\rho)$", ".", "#F28E2B" ) ]
 
 for tag, label, marker, color in plot_params:
     sizes, times = get_data(tag)
@@ -46,8 +46,8 @@ for tag, label, marker, color in plot_params:
     plt.gca().set_xlim(size_lims)
     plt.gca().set_ylim(time_lims)
 
-plt.xlabel(r"qudit dimension $(d)$")
-plt.ylabel(r"seconds $(t)$")
+plt.xlabel(r"qudit dimension $d$")
+plt.ylabel(r"time (seconds)")
 plt.legend(loc = "best")
 plt.tight_layout()
 plt.savefig(fig_dir + "qudit_times.pdf")
