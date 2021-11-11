@@ -49,5 +49,5 @@ for tag, label, marker, color in plot_params:
 plt.xlabel(r"qudit dimension $d$")
 plt.ylabel(r"time (seconds)")
 plt.legend(loc = "best")
-plt.tight_layout()
+plt.tight_layout(pad = 0.1)
 plt.savefig(fig_dir + "qudit_times.pdf")

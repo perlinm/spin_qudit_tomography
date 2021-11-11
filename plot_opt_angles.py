@@ -40,7 +40,7 @@ for axis in axes[:,0]:
 for axis in axes[-1,:]:
     axis.set_xlabel(r"$\frac{\theta}{\pi/2}$")
 
-plt.tight_layout()
+plt.tight_layout(pad = 0.3)
 plt.savefig(fig_dir + "angle_sweep.pdf")
 
 ##########################################################################################
@@ -60,8 +60,6 @@ for idx, file in enumerate(files):
 dims, opt_angles = zip(*sorted([ (dim,angle) for dim, angle in zip(dims,opt_angles) ]))
 dims = np.array(dims)
 opt_angles = np.array(opt_angles)
-print(np.log10(dims))
-print(np.log10(opt_angles))
 
 def fit_func(dim, scalar):
     return np.pi/2 * (1 - 1/(scalar*dim))
@@ -79,5 +77,5 @@ plt.xlim(right = 100)
 plt.xlabel(r"$d$")
 plt.ylabel(r"$1-\frac{\theta_{\mathrm{opt}}}{\pi/2}$")
 plt.legend(loc = "best")
-plt.tight_layout()
+plt.tight_layout(pad = 0.1)
 plt.savefig(fig_dir + "opt_angles.pdf")

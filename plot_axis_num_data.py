@@ -32,6 +32,7 @@ for dim, color, marker in zip(dims, colors, markers):
     # plot normalized empirical error scales from randomized tomography protocol
     scales *= np.sqrt(axes) # get "measurement-adjusted" error scale
     excess_axes = axes - (2*dim-1)
+    excess_axes, scales = excess_axes[::2], scales[::2] # plot less data for legibility
     plt.plot(excess_axes/dim, scales/scales[0], marker, markersize = 4,
              label = f"$d={dim}$", color = color)
 
@@ -52,5 +53,5 @@ plt.xlabel(r"$p/d$")
 plt.ylabel(r"$\tilde\beta(p)/\tilde\beta(0)$")
 spacing_kwargs = dict( handlelength = 1, columnspacing = 1, labelspacing = 0.2 )
 plt.legend(loc = "best", ncol = 2, **spacing_kwargs)
-plt.tight_layout()
+plt.tight_layout(pad = 0.1)
 plt.savefig(fig_dir + "qudit_axes.pdf")
